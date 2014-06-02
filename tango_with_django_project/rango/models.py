@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 
 # taken from the django tutorials
 
@@ -14,11 +16,19 @@ Also I prefer camelcase to _
 
 #Inheritance in python looks sort of like taking an argument. Remember that Akira.
 #Also every model has to inherit from models.Model. Not sure why.
-class Question(models.Model):
-	question = models.CharField(max_length=200)
-	pub_date = models.DateTimeField('date published') #'date published' is the human readable name, optional argument.
+class Topic(models.Model):
+	name = models.CharField(max_length=128, unique=True)
+	views = models.IntegerField(default=0)
+	likes = models.IntegerField(default=0)
 
-class Decision(models.Model):
-	question = models.ForeignKey(Question) #So could I do models.PrimaryKey? Do they have GUID support?
-	choice_text = models.CharField(max_length=200)
-	votes = models.IntegerField(default = 0)
+	def __unicode__(self):
+		return self.name
+
+class Site(models.Model):
+	topic = models.ForeignKey(Topic)
+	title = models.CharField(max_length=128)
+	url = models.URLField()
+	views = models.IntegerField(default=0)
+
+	def __unicode__(self):
+		return self.title

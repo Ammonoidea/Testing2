@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% load static %} <!-- New Line -->
+
+<html>
+
+	<head>
+		<title>Rango</title>
+	</head>
+
+	<body>
+
+	<!-- Absolutely no spaces for {{ comm }} between '%' and '{' -->
+		{% if topics %}
+			<ul>
+				{% for topic in topics %}
+				<li><a href='/rango/topic/{{ topic.url }}'>{{ topic.name }}</a></li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<strong>There are no topics present</strong>>
+		{% endif %}
+
+
+		<a href ="/rango/about/">About</a><br />
+		<img src="{% static 'Smooch.jpg' %}" alt="A cute smooch" /> <!-- New line -->
+	</body>
+
+</html>
